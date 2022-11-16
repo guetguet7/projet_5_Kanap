@@ -3,37 +3,32 @@ const idParams = new URLSearchParams(idurlParams);
 const leId = idParams.get("id");
 console.log(leId);
 
-        /* ALLER CHERCHER L'URL ET L'ID POUR POUVOIR L'AFFICHER  */ 
+/* ALLER CHERCHER L'URL ET L'ID POUR POUVOIR L'AFFICHER  */
 
-let produitData = [];
+fetch("http://localhost:3000/api/products/" + leId)
+  .then((response) => response.json())
+  .then((data) => {
+    datas(data);
+  })
+  .catch(function (err) {
+    // console.log("erreur")
+  });
 
-const fetchProduit = async () => {
-    await fetch(`http://localhost:3000/api/products/${leId}`)
-    .then((res) => (res.json()))
-    .then((promise) => {
-    produitData = promise 
-    console.log(produitData);
-    })
-  }
+function datas(data) {
+  console.log(data);
+  const img = document.querySelector(".item__img");
+  img.innerHTML += `<img src="${data.imageUrl}" alt="${data.altTxt}">`;
 
-  function productData(promise) {
-    let productImg = document.createElement("img");
-    document.querySelector(".item__img").appendChild(productImg);
-    productImg.setAttribute("src", `${product.imageUrl}`);
-    productImg.setAttribute("alt", `${product.altTxt}`);
+  const titre = document.getElementById("title");
+  titre.innerHTML += `${data.name}`;
 
+  const prix = document.getElementById("price");
+  prix.innerHTML += `${data.price}`;
 
-  } 
-  productData()
-// const produitDisplay = async () => {
-//     await fetchProduit()
+  const info = document.getElementById("description")
+  info.innerHTML += `${data.description}`
 
-//   // let productImg = document.createAttribute('item_img').innerHTML = `
-//   // <img src="${produitData.imageUrl}" alt="${produitData.altTxt}"
-  
-  
-//   // `
-
-//   //   }
-//   //   produitDisplay()
-//   // };
+  const couleur = document.getElementById("colors")
+  for (let i = 0; i < data.length; i++)
+  couleur.innerHTML += `${data.value}`
+}
