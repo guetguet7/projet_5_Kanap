@@ -25,10 +25,19 @@ function datas(data) {
   const prix = document.getElementById("price");
   prix.innerHTML += `${data.price}`;
 
-  const info = document.getElementById("description")
-  info.innerHTML += `${data.description}`
+  const info = document.getElementById("description");
+  info.innerHTML += `${data.description}`;
 
-  const couleur = document.getElementById("colors")
-  for (let i = 0; i < data.length; i++)
-  couleur.innerHTML += `${data.value}`
+  // for (let j = 0; j < couleur.length; j++) {
+  //   console.log(couleur);
+  // }
+
+  const couleur = document.getElementById("colors");
+
+  data.colors.forEach((colors) => {
+    let option = document.createElement("option");
+    couleur.appendChild(option);
+    option.setAttribute("value", "color-select");
+    option.textContent = colors;
+  });
 }
